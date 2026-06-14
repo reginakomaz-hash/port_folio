@@ -1,0 +1,765 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-body: #f3f4f6;
+  --bg-card: #ffffff;
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --text-light: #9ca3af;
+  --accent: #4f46e5;
+  --accent-hover: #4338ca;
+  --border: #e5e7eb;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg-body);
+  color: var(--text-main);
+  line-height: 1.6;
+  padding: 20px;
+  -webkit-font-smoothing: antialiased;
+}
+.site {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+/* Навигация */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 24px 48px; border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-size: 16px; font-weight: 700; color: var(--text-main); letter-spacing: -0.02em; }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a { font-size: 14px; font-weight: 500; color: var(--text-muted); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+.nav-links a:hover { color: var(--accent); }
+
+/* Герой-секция */
+.hero {
+  display: grid; grid-template-columns: 1fr 380px; gap: 40px;
+  padding: 60px 48px; background: #fafafa; border-bottom: 1px solid var(--border);
+}
+.hero-content { display: flex; flex-direction: column; justify-content: center; }
+.hero-tag { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+.hero-name { font-size: 56px; font-weight: 700; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 20px; color: var(--text-main); }
+.hero-role { font-size: 16px; color: var(--text-muted); margin-bottom: 32px; line-height: 1.6; max-width: 460px; }
+.hero-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+.pill { font-size: 13px; font-weight: 500; padding: 6px 14px; border-radius: 20px; background: #f3f4f6; color: var(--text-main); }
+
+/* Статистика Bento */
+.hero-stats { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 32px; }
+.stat-item { background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 20px; min-width: 120px; box-shadow: var(--shadow-sm); }
+.stat-num { display: block; font-size: 28px; font-weight: 700; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+.stat-lbl { font-size: 12px; font-weight: 500; color: var(--text-muted); }
+
+.hero-companies { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; }
+.hero-companies span.lbl { font-size: 12px; font-weight: 600; color: var(--text-light); text-transform: uppercase; }
+.co-badge { font-size: 13px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 6px;}
+
+/* Фото героя */
+.hero-photo-wrap { position: relative; border-radius: 20px; overflow: hidden; background: #e5e7eb; box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); }
+.photo-placeholder { width: 100%; height: 100%; min-height: 400px; position: relative; background: #e0e7ff; }
+#hero-img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  object-position: center 0%; 
+  transform: scale(1.15); 
+  position: absolute; 
+  inset: 0; 
+}
+
+/* Разделы */
+.section-wrapper { padding: 60px 48px; border-bottom: 1px solid var(--border); }
+.section-label { font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.section-title { font-size: 36px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+.section-sub { font-size: 16px; color: var(--text-muted); margin-bottom: 40px; }
+
+/* Фильтры */
+.filter-tabs { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+.ftab { font-size: 14px; font-weight: 500; padding: 8px 18px; border-radius: 24px; border: 1px solid var(--border); color: var(--text-muted); cursor: pointer; background: transparent; transition: all 0.2s; }
+.ftab.active { border-color: var(--accent); color: var(--accent); background: #eef2ff; }
+.ftab:hover:not(.active) { border-color: #cbd5e1; color: var(--text-main); }
+
+/* Сетка кейсов */
+.cases-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.case-card { background: #ffffff; border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: var(--shadow-sm); }
+.case-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); border-color: #cbd5e1; }
+.case-card.expanded { grid-column: 1 / -1; border-color: var(--accent); box-shadow: var(--shadow-md); }
+
+/* Зона клика: Заголовок + превью */
+.card-click-area { cursor: pointer; }
+.card-header { padding: 24px 24px 16px; display: flex; align-items: flex-start; gap: 16px; }
+.card-num { font-size: 13px; font-weight: 700; color: #d1d5db; margin-top: 2px; }
+.card-meta { flex: 1; }
+.card-title { font-size: 18px; font-weight: 700; color: var(--text-main); line-height: 1.3; margin-bottom: 6px; letter-spacing: -0.01em; }
+.card-company { font-size: 14px; font-weight: 500; color: var(--text-muted); }
+.card-arrow { font-size: 20px; color: var(--text-light); transition: transform 0.3s; margin-top: 2px; pointer-events: none; }
+.case-card.expanded .card-arrow { transform: rotate(180deg); color: var(--accent); }
+
+/* Бейджи типов */
+.badges-wrap { display: flex; gap: 8px; margin-bottom: 12px; }
+.card-type-badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.02em; }
+.badge-online { background: #eef2ff; color: #4338ca; }
+.badge-offline { background: #ecfdf5; color: #047857; }
+.badge-collab { background: #fffbeb; color: #b45309; }
+.badge-federal { background: #fdf2f8; color: #be185d; }
+
+.card-preview { padding: 0 24px 24px; pointer-events: none; }
+.case-card.expanded .card-preview { display: none; }
+.preview-text { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+/* Тело кейса (появляется при клике) */
+.card-body { display: none; padding: 0 32px 32px; border-top: 1px solid var(--border); margin-top: 10px; padding-top: 24px; cursor: default; }
+.case-card.expanded .card-body { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Метрики внутри кейса */
+.metrics-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.metric-chip { background: #f9fafb; border: 1px solid #f3f4f6; border-radius: var(--radius-md); padding: 16px; display: flex; flex-direction: column; gap: 4px; border-left: 3px solid var(--accent); }
+.mc-num { font-size: 22px; font-weight: 700; color: var(--text-main); line-height: 1; }
+.mc-lbl { font-size: 12px; font-weight: 500; color: var(--text-muted); }
+
+/* Сетка деталей */
+.detail-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 24px; }
+.detail-block.full { grid-column: 1 / -1; }
+.det-label { font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-light); margin-bottom: 6px; }
+.det-val { font-size: 14px; color: var(--text-main); line-height: 1.6; }
+
+/* Акценты: Инсайты и Риски */
+.insight-box { margin-top: 8px; padding: 16px; background: #eef2ff; border-radius: var(--radius-md); border: 1px solid #e0e7ff; }
+.insight-box p { font-size: 14px; color: #3730a3; line-height: 1.6; font-weight: 500; }
+.risk-box { margin-top: 8px; padding: 16px; background: #fffbeb; border-radius: var(--radius-md); border: 1px solid #fef3c7; }
+.risk-box p { font-size: 14px; color: #92400e; line-height: 1.6; font-weight: 500; }
+
+/* Теги и ссылки */
+.tag-list { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 24px; padding-top: 24px; border-top: 1px dashed var(--border); }
+.tag { font-size: 12px; font-weight: 500; padding: 4px 12px; border-radius: 6px; background: #f3f4f6; color: var(--text-muted); border: 1px solid #e5e7eb; }
+.links-row { margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;}
+.case-link { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--accent); text-decoration: none; padding: 8px 14px; background: #eef2ff; border-radius: var(--radius-sm); transition: all 0.2s; position: relative; z-index: 2; }
+.case-link:hover { background: var(--accent); color: #fff; }
+
+/* Контакты */
+.contacts-section { padding: 60px 48px; background: #111827; color: #fff; border-radius: 0 0 24px 24px; }
+.contacts-section .section-label { color: #818cf8; }
+.contacts-section .section-title { color: #fff; }
+.contacts-section .section-sub { color: #9ca3af; margin-bottom: 32px; }
+.contact-btn { display: inline-flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; padding: 14px 28px; border-radius: 30px; background: #fff; color: #111827; text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.contact-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 15px rgba(0,0,0,0.2); }
+.contact-btn.outline { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; }
+.contact-btn.outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .hero { grid-template-columns: 1fr; padding: 40px 24px; }
+  .hero-photo-wrap { min-height: 400px; }
+  .nav { padding: 20px 24px; }
+  .section-wrapper, .contacts-section { padding: 40px 24px; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .detail-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="site">
+  <nav class="nav">
+    <div class="nav-logo">Портфолио</div>
+    <div class="nav-links">
+      <a onclick="document.getElementById('cases').scrollIntoView({behavior:'smooth'})">Кейсы</a>
+      <a onclick="document.getElementById('contacts').scrollIntoView({behavior:'smooth'})">Контакты</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">Руководитель спецпроектов</div>
+      <h1 class="hero-name">Регина<br>Лукьянова</h1>
+      <p class="hero-role">Управляю образовательными продуктами, онлайн-запусками и партнёрскими проектами в edtech и bigtech. Создаю события, которые работают на бренд, охват и аудиторию.</p>
+      
+      <div class="hero-stats">
+        <div class="stat-item"><span class="stat-num">7+</span><span class="stat-lbl">лет в сфере</span></div>
+        <div class="stat-item"><span class="stat-num">50+</span><span class="stat-lbl">проектов</span></div>
+        <div class="stat-item"><span class="stat-num">25+</span><span class="stat-lbl">партнёров привлечено</span></div>
+        <div class="stat-item"><span class="stat-num">10 000+</span><span class="stat-lbl">участников курсов</span></div>
+      </div>
+
+      <div class="hero-pills">
+        <span class="pill">Бренд работодателя</span>
+        <span class="pill">Спецпроекты</span>
+        <span class="pill">Онлайн-запуски</span>
+        <span class="pill">Партнёрства</span>
+        <span class="pill">Ивент-менеджмент</span>
+      </div>
+
+      <div class="hero-companies">
+        <span class="lbl">Опыт:</span>
+        <span class="co-badge">Школа 21 · Сбер</span>
+        <span class="co-badge">VK</span>
+        <span class="co-badge">НКО</span>
+      </div>
+    </div>
+
+    <!-- Обновленный блок с фото -->
+    <div class="hero-photo-wrap">
+      <div class="photo-placeholder" id="photo-area">
+        <img id="hero-img" src="https://i.postimg.cc/1twFs0vf/IMG-2804.jpg" alt="Регина Лукьянова">
+      </div>
+    </div>
+  </section>
+
+  <div class="section-wrapper" id="cases">
+    <div class="section-label">Портфолио</div>
+    <h2 class="section-title">Кейсы</h2>
+    <p class="section-sub">Онлайн-запуски, офлайн-события, партнёрские спецпроекты и федеральные проекты</p>
+    
+    <div class="filter-tabs">
+      <button class="ftab active" data-filter="all">Все</button>
+      <button class="ftab" data-filter="online">Онлайн-запуски</button>
+      <button class="ftab" data-filter="offline">Офлайн</button>
+      <button class="ftab" data-filter="collab">Партнёрства</button>
+      <button class="ftab" data-filter="federal">Федеральные</button>
+    </div>
+
+    <div class="cases-grid" id="cases-grid">
+
+      <!-- CASE 1 -->
+      <div class="case-card" data-type="online collab">
+        <div class="card-click-area" onclick="toggleCard(this.closest('.case-card'))">
+          <div class="card-header">
+            <span class="card-num">01</span>
+            <div class="card-meta">
+              <div class="badges-wrap">
+                <span class="card-type-badge badge-collab">Edtech · Партнёрство с бизнесом</span>
+              </div>
+              <div class="card-title">Продуктовая мастерская кейсов</div>
+              <div class="card-company">Школа 21 · Сбер — МГИМО, КФУ, ТГУ</div>
+            </div>
+            <div class="card-arrow">▼</div>
+          </div>
+          <div class="card-preview">
+            <p class="preview-text">Флагманский образовательный продукт: студенты решают реальные бизнес-кейсы от структур Сбера и индустрии. Три запуска, ~3 000 участников, 7+ кейсодателей.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="metrics-row">
+            <div class="metric-chip"><span class="mc-num">3</span><span class="mc-lbl">запуска</span></div>
+            <div class="metric-chip"><span class="mc-num">~3 000</span><span class="mc-lbl">студентов</span></div>
+            <div class="metric-chip"><span class="mc-num">7+</span><span class="mc-lbl">кейсодателей</span></div>
+            <div class="metric-chip"><span class="mc-num">7+</span><span class="mc-lbl">CSI средний</span></div>
+            <div class="metric-chip"><span class="mc-num">50</span><span class="mc-lbl">NPS средний</span></div>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-block">
+              <div class="det-label">Цель проекта</div>
+              <div class="det-val">Привлечение реальных экспертов-кейсодателей из контура Сбера и индустрии для решения их бизнес-кейсов студентами. Студенты на реальных задачах получают практические навыки и развивают портфолио.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Роль</div>
+              <div class="det-val">Продакт, управление всем продуктом. Стратегия и концепция, поиск и переговоры с кейсодателями, координация команд: методологи, сопровождение, GTM. Контроль ключевых метрик, отчётность.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Формат</div>
+              <div class="det-val">Комбинированный: онлайн или гибрид в зависимости от запуска. Продукт состоит из двух параллельных частей — образовательные проекты на платформе и решение реальных бизнес-кейсов от кейсодателей.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Команды / подрядчики</div>
+              <div class="det-val">Центр робототехники Сбера, Центр индустрии образования Сбера, Департамент глобальных рынков ПАО Сбербанк, Социальные проекты Сбера, Креативное бюро ФАНК, Проектная лаборатория Ньютон Парк и другие.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Риски</div>
+              <div class="risk-box"><p>Главный риск — отсутствие кейсодателей, готовых бесплатно подготовить кейс для студентов. Второй риск — студенты не справятся с уровнем кейса.</p></div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Показатели результата</div>
+              <div class="det-val">Общий COR продукта, качество решений кейсов, CSI (средний 7+), NPS (средний 50).</div>
+            </div>
+            <div class="detail-block full">
+              <div class="det-label">Что сработало / вывод</div>
+              <div class="insight-box"><p>Качественно выстроенные отношения с кейсодателями позволили повторно использовать материалы в разных запусках — это сэкономило значительные ресурсы продуктовой, методической команды и команды сопровождения. Лучше всего такие запуски работают с промо на широкую аудиторию и дальнейшим отбором лучших 100 — мотивация сильнее. Студенты показали хорошие готовые прототипы, 90 % кейсодателей взяли решения на детальное изучение. Я бы добавила дополнительный воркшоп по питчингу проектов для студентов. Ещё можно здорово кастомизировать каждый запуск под конкретный бизнес-юнит — получилась бы win-win PR-история.</p></div>
+            </div>
+          </div>
+          <div class="links-row">
+            <a href="https://t.me/tsfrgrdn_mercury/771" target="_blank" class="case-link">Пост от ТГУ →</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Онлайн / гибрид</span><span class="tag">Партнёрство с бизнесом</span><span class="tag">Управление экспертами</span><span class="tag">Edtech</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 2 -->
+      <div class="case-card" data-type="online">
+        <div class="card-click-area" onclick="toggleCard(this.closest('.case-card'))">
+          <div class="card-header">
+            <span class="card-num">02</span>
+            <div class="card-meta">
+              <div class="badges-wrap"><span class="card-type-badge badge-online">Онлайн-курс</span></div>
+              <div class="card-title">«Новые медиа: SMM и digital-маркетинг»</div>
+              <div class="card-company">VK Education</div>
+            </div>
+            <div class="card-arrow">▼</div>
+          </div>
+          <div class="card-preview">
+            <p class="preview-text">Онлайн-курс по digital-маркетингу: от концепции и продакшена до промо-запуска. 10 000 участников через вузы и платное привлечение.</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="metrics-row">
+            <div class="metric-chip"><span class="mc-num">10 000</span><span class="mc-lbl">участников</span></div>
+            <div class="metric-chip"><span class="mc-num">NPS 60+</span><span class="mc-lbl">удовлетворённость</span></div>
+            <div class="metric-chip"><span class="mc-num">CSI 7,6+</span><span class="mc-lbl">оценка курса</span></div>
+            <div class="metric-chip"><span class="mc-num">6+</span><span class="mc-lbl">бизнес-юнитов</span></div>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-block">
+              <div class="det-label">Цель</div>
+              <div class="det-val">Охват студенческой аудитории, продвижение бренда VK Education, масштабирование через вузы и платное промо.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Роль</div>
+              <div class="det-val">Разработка концепции курса совместно с методистом и экспертом, управление продакшеном (бриф, съёмки, монтаж, постпродакшн), поиск и сопровождение экспертов, выстраивание маркетинга и PR, работа с LMS, лендингом. Бюджет и смета.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Формат</div>
+              <div class="det-val">Асинхронный онлайн-курс из 30+ видеолекций от экспертов VK.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Каналы привлечения</div>
+              <div class="det-val">Промокампания, партнёрские вузы, партнёры VK Education, внутренние ресурсы компании.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Риски</div>
+              <div class="risk-box"><p>Главные риски — сроки реализации, бюджет (продакшн и промо), показатели по количеству участников.</p></div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Показатели результата</div>
+              <div class="det-val">Количество студентов на LMS, привлечение всех контентных бизнес-юнитов в качестве экспертов.</div>
+            </div>
+            <div class="detail-block full">
+              <div class="det-label">Что сработало / вывод</div>
+              <div class="insight-box"><p>За счёт качественного выстраивания долгосрочных отношений с коллегами удалось привлечь экспертов из всех контентных бизнес-юнитов — ВКонтакте, VK Реклама, VK Клипы, VK Видео, Дзен, Одноклассники — на безвозмездной основе. Не удалось добиться отдельного бюджета на промо: курс стартовал в общей кампании, что ограничило охваты. Позже показатели были закрыты через вузы-партнёры. Анализ статистики показал, что студенты из вузов доходили до конца на 70% чаще, чем привлечённые через промо. Метрику дополнительно добивала через проект «Творческая лаборатория VK». Проект продолжает развиваться в компании.</p></div>
+            </div>
+          </div>
+          <div class="links-row">
+            <a href="https://education.vk.company/program/646" target="_blank" class="case-link">Страница курса →</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Онлайн-курс</span><span class="tag">Продакшен</span><span class="tag">LMS</span><span class="tag">Digital-маркетинг</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 3 -->
+      <div class="case-card" data-type="online offline collab">
+        <div class="card-click-area" onclick="toggleCard(this.closest('.case-card'))">
+          <div class="card-header">
+            <span class="card-num">03</span>
+            <div class="card-meta">
+              <div class="badges-wrap"><span class="card-type-badge badge-collab">Спецпроект · Партнёрство</span></div>
+              <div class="card-title">«Новые медиа» × Таврида</div>
+              <div class="card-company">VK Education × Арт-кластер Таврида</div>
+            </div>
+            <div class="card-arrow">▼</div>
+          </div>
+          <div class="card-preview"><p class="preview-text">Онлайн-курс для преподавателей вузов с офлайн-финалом в Крыму. 80 лучших финалистов — пятидневный интенсив на площадке арт-кластера Таврида.</p></div>
+        </div>
+        <div class="card-body">
+          <div class="metrics-row">
+            <div class="metric-chip"><span class="mc-num">80</span><span class="mc-lbl">финалистов</span></div>
+            <div class="metric-chip"><span class="mc-num">Online + Offline</span><span class="mc-lbl">гибридный формат</span></div>
+            <div class="metric-chip"><span class="mc-num">COR 100%</span><span class="mc-lbl">завершение курса</span></div>
+            <div class="metric-chip"><span class="mc-num">CSI 9</span><span class="mc-lbl">оценка</span></div>
+            <div class="metric-chip"><span class="mc-num">NPS 80+</span><span class="mc-lbl">рекомендации</span></div>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-block">
+              <div class="det-label">Цель</div>
+              <div class="det-val">Привлечение преподавателей вузов как участников курса, повышение их квалификации и лояльности к VK Education. Лучшие становятся амбассадорами курса «Новые медиа» внутри своих вузов и привлекают студенческую аудиторию. Усиление партнёрства с Тавридой как стратегическим партнёром VK.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Роль</div>
+              <div class="det-val">Проджект. Выстраивание партнерских отношений с Тавридой, отслеживание метрик, организация финального выезда, работа с экспертами, взаимодействие с командой Тавриды на месте.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Формат</div>
+              <div class="det-val">Онлайн-курс «Новые медиа» на LMS. Отбор лучших преподавателей для пятидневного офлайн-интенсива в Крыму на территории арт-кластера Таврида.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Каналы привлечения</div>
+              <div class="det-val">PR и маркетинг команд VK Education и Тавриды, открытое промо, рассылки, эфиры для вузов-партнёров.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Риски</div>
+              <div class="risk-box"><p>Сложное взаимодействие с партнёром. Очень «непростой» статус места расположения финала (требование партнёра). Размытые зоны ответственности между партнёрами и организаторами.</p></div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Команды / подрядчики</div>
+              <div class="det-val">Команда VK Education (маркетинг, PR, LMS), команда арт-кластера Таврида на месте, вузы-партнёры.</div>
+            </div>
+            <div class="detail-block full">
+              <div class="det-label">Что сработало / вывод</div>
+              <div class="insight-box"><p>Проект был сложным, честно скажу. Когда зоны ответственности размыты — помогает документация: дорожная карта возвращала участников проекта к конкретике. Эффективно сработала база контактов Тавриды, а также точечное привлечение преподавателей из Южного федерального округа. В следующий раз я бы усилила концепцию финала профильными экспертами VK и заранее сформировала бы пакет методических материалов для поддержки преподавателей.</p></div>
+            </div>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Гибридный формат</span><span class="tag">Преподаватели вузов</span><span class="tag">Финал-ивент</span><span class="tag">Партнёрская интеграция</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 4 -->
+      <div class="case-card" data-type="online collab">
+        <div class="card-click-area" onclick="toggleCard(this.closest('.case-card'))">
+          <div class="card-header">
+            <span class="card-num">04</span>
+            <div class="card-meta">
+              <div class="badges-wrap"><span class="card-type-badge badge-online">Спецпроект · Стажировки</span></div>
+              <div class="card-title">«Творческая мастерская VK»</div>
+              <div class="card-company">VK Education — НИУ ВШЭ, МГУ</div>
+            </div>
+            <div class="card-arrow">▼</div>
+          </div>
+          <div class="card-preview"><p class="preview-text">Курс + практика в бизнес-юнитах VK. Три запуска с ВШЭ и МГУ, 100 студентов-финалистов в каждом отборе, NPS бизнес-юнитов 90%.</p></div>
+        </div>
+        <div class="card-body">
+          <div class="metrics-row">
+            <div class="metric-chip"><span class="mc-num">90%</span><span class="mc-lbl">NPS бизнес-юнитов</span></div>
+            <div class="metric-chip"><span class="mc-num">3</span><span class="mc-lbl">запуска</span></div>
+            <div class="metric-chip"><span class="mc-num">100</span><span class="mc-lbl">студентов в каждом отборе</span></div>
+            <div class="metric-chip"><span class="mc-num">13+</span><span class="mc-lbl">бизнес-юнитов</span></div>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-block">
+              <div class="det-label">Цель</div>
+              <div class="det-val">Популяризация бренда VK как работодателя, привлечение внутренних заказчиков (бизнес-юнитов) к совместным образовательным проектам через VK Education.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Роль</div>
+              <div class="det-val">Полная концепция и стратегия продукта, запуск с тремя вузами, переговоры с вузами и бизнес-юнитами, отслеживание метрик, мероприятия в рамках запусков, бюджетирование и отчётность, промокампания каждого запуска, сопровождение студентов, экспертов, вузов.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Формат</div>
+              <div class="det-val">Гибридный. Первая часть — онлайн-курс «Новые медиа», по результатам которого отбираются 100 лучших студентов. Вторая часть — очная практика внутри бизнес-юнитов VK и защита результатов.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Бизнес-юниты VK</div>
+              <div class="det-val">ВКонтакте, VK Play, ИБ, Простор, Дзен, Одноклассники, VK Fest, VK Клипы, VK Реклама, VK Видео, VK Testers, Mail.ru, VK Team и другие.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Риски</div>
+              <div class="risk-box"><p>Бизнес не захочет бесплатно участвовать — тратить ресурс сотрудников. Бизнес-юниты останутся недовольны уровнем знаний студентов — это отразится на дальнейшем взаимодействии с VK Education и внутреннем бренде.</p></div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Показатели результата</div>
+              <div class="det-val">NPS бизнес-юнитов (90%), конверсия прохождения курса «Новые медиа», лояльность вузов-партнёров.</div>
+            </div>
+            <div class="detail-block full">
+              <div class="det-label">Что сработало / вывод</div>
+              <div class="insight-box"><p>Ключевым фактором успеха стали выстроенные, доверительные отношения с бизнес-юнитами VK. Глубокий аккаунтинг и развитые софт-скиллы позволили нивелировать страхи бизнеса относительно трудозатрат — и они оставались вовлеченными до финала. Проект стал инструментом внутреннего брендинга VK Education — ключевой успех: высокий NPS именно внутренних заказчиков. Яркое УТП проекта дало хорошие цифры в конверсию прохождения курса «Новые медиа»; вузы-партнёры получили классный продукт для студентов — лояльность вузов одна из ключевых целей VK Education. Этот проект — мой любимец. Его можно делать всегда по-разному: хоть камерно, хоть охватно. Проект поддержал руководитель VK Education.</p></div>
+            </div>
+          </div>
+          <div class="links-row">
+            <a href="https://vk.com/wall-92204627_23187" target="_blank" class="case-link">Пост о проекте →</a>
+            <a href="https://vk.com/wall-92204627_25142" target="_blank" class="case-link">Лекции →</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Бренд работодателя</span><span class="tag">Внутренний брендинг</span><span class="tag">Стажировки</span><span class="tag">Гибридный формат</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 5 -->
+      <div class="case-card" data-type="online collab">
+        <div class="card-click-area" onclick="toggleCard(this.closest('.case-card'))">
+          <div class="card-header">
+            <span class="card-num">05</span>
+            <div class="card-meta">
+              <div class="badges-wrap"><span class="card-type-badge badge-online">Амбассадорская программа</span></div>
+              <div class="card-title">«Амбассадоры VK»</div>
+              <div class="card-company">VK Education</div>
+            </div>
+            <div class="card-arrow">▼</div>
+          </div>
+          <div class="card-preview"><p class="preview-text">Набор активных студентов-представителей VK в вузах. Запуск мини-приложения, онлайн-эфир, промо-ролик. Заявки +293% к прошлому году.</p></div>
+        </div>
+        <div class="card-body">
+          <div class="metrics-row">
+            <div class="metric-chip"><span class="mc-num">+293%</span><span class="mc-lbl">заявок vs прошлый год</span></div>
+            <div class="metric-chip"><span class="mc-num">×15</span><span class="mc-lbl">рост прохождения теста</span></div>
+            <div class="metric-chip"><span class="mc-num">5 000+</span><span class="mc-lbl">живых участников сообщества</span></div>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-block">
+              <div class="det-label">Цель</div>
+              <div class="det-val">Набор активных студентов в программу «Амбассадоры VK». Привлечение лидов через мини-приложение ВКонтакте, прохождение 7-этапной воронки, популяризация программы.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Роль</div>
+              <div class="det-val">Проджект программы — мой первый проект в VK. Запуск и управление мини-приложением, организация прямого эфира, руководство командой контента (посты, ролики, мини-игры, эфиры), взаимодействие с командами маркетинга и PR, отслеживание ключевых метрик, отчётность.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Формат</div>
+              <div class="det-val">Наборная кампания через мини-приложение ВКонтакте с заданиями (тест, видеоинтервью и другие) для отбора лучших и приглашения на летнюю образовательную программу.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Инструменты привлечения</div>
+              <div class="det-val">Мини-приложение ВКонтакте (7-этапная воронка), прямой эфир, промо-ролик, ведение отдельного сообщества ВКонтакте, маркетинговые и PR-активности в течение нескольких месяцев.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Риски</div>
+              <div class="risk-box"><p>Слишком много этапов воронки — на каждом теряется часть лидов. Отсутствие руководителя проекта на старте.</p></div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Показатели результата</div>
+              <div class="det-val">Количество заявок, прохождение теста, активность сообщества.</div>
+            </div>
+            <div class="detail-block full">
+              <div class="det-label">Что сработало / вывод</div>
+              <div class="insight-box"><p>Риски удалось нивелировать за счёт создания и постоянного ведения сообщества — оно держало участников в тонусе и помогало проходить каждый этап воронки. Проводили прямые эфиры с участниками. Позже, с переходом проекта к новому руководителю, выстроилось более качественное взаимодействие с командами маркетинга и PR. Это был мой первый проект в большой компании, и сейчас, оглядываясь назад, я бы многое сделала иначе.</p></div>
+            </div>
+          </div>
+          <div class="links-row">
+            <a href="https://vk.com/wall-92204627_21888" target="_blank" class="case-link">Промо-ролик →</a>
+            <a href="https://vk.com/wall-92204627_21111" target="_blank" class="case-link">Прямой эфир →</a>
+            <a href="https://vk.com/ambassadorvk" target="_blank" class="case-link">Сообщество →</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Мини-приложение ВК</span><span class="tag">Прямой эфир</span><span class="tag">Контент-команда</span><span class="tag">Воронка лидов</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 6 -->
+      <div class="case-card" data-type="offline collab">
+        <div class="card-click-area" onclick="toggleCard(this.closest('.case-card'))">
+          <div class="card-header">
+            <span class="card-num">06</span>
+            <div class="card-meta">
+              <div class="badges-wrap"><span class="card-type-badge badge-offline">Офлайн · Фестиваль</span></div>
+              <div class="card-title">Таврида.АРТ — образовательный шатёр VK</div>
+              <div class="card-company">VK Education × Арт-кластер Таврида</div>
+            </div>
+            <div class="card-arrow">▼</div>
+          </div>
+          <div class="card-preview"><p class="preview-text">Крупнейший фестиваль молодого искусства России (~500 000 посетителей). Организация образовательного шатра VK с нуля: 3 дня программы, 4 эксперта привлечено на безвозмездной основе.</p></div>
+        </div>
+        <div class="card-body">
+          <div class="metrics-row">
+            <div class="metric-chip"><span class="mc-num">~500 000</span><span class="mc-lbl">посетителей фестиваля</span></div>
+            <div class="metric-chip"><span class="mc-num">3 дня</span><span class="mc-lbl">образовательная программа</span></div>
+            <div class="metric-chip"><span class="mc-num">0 → 4</span><span class="mc-lbl">эксперта на фестивале</span></div>
+            <div class="metric-chip"><span class="mc-num">Безвозмездно</span><span class="mc-lbl">привлечение экспертов</span></div>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-block">
+              <div class="det-label">Цель</div>
+              <div class="det-val">Заполнить лекционную сетку шатра VK на все три дня фестиваля бесплатными экспертами, обеспечить PR-присутствие бренда.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Роль</div>
+              <div class="det-val">Продюсер образовательной программы от VK Education. Поиск и привлечение экспертов, готовых к сложной командировке, составление и согласование образовательной программы, организация и решение вопросов на месте.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Формат</div>
+              <div class="det-val">Трёхдневный офлайн-фестиваль культуры и искусства арт-кластера Таврида на территории Крыма. Образовательные и развлекательные программы.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Риски</div>
+              <div class="risk-box"><p>Особый статус партнёра (GR). Сложное географическое расположение — Крым. Трудно привлечь экспертов, готовых выделить около пяти дней на полноценную командировку.</p></div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Команды / подрядчики</div>
+              <div class="det-val">Команда арт-кластера Таврида, эксперты VK Education на местах.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Показатели результата</div>
+              <div class="det-val">Заполненность сетки (3 дня), количество привлечённых экспертов, PR-охват.</div>
+            </div>
+            <div class="detail-block full">
+              <div class="det-label">Что сработало / вывод</div>
+              <div class="insight-box"><p>Сработало всё отлично. Были эксперты, которые отказывались после того, как дали согласие — но широкий круг знакомств позволил компенсировать этот риск и привлечь хорошее количество экспертов для комфортной образовательной сетки. Непосредственно личное участие на площадке способствовало росту уверенности экспертов, что положительно сказалось на их согласии ехать в командировку.</p></div>
+            </div>
+          </div>
+          <div class="links-row">
+            <a href="https://tavrida.art/fest" target="_blank" class="case-link">Фестиваль →</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Офлайн-фестиваль</span><span class="tag">Экспертный пул</span><span class="tag">Сложная логистика</span><span class="tag">GR</span><span class="tag">PR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 7 -->
+      <div class="case-card" data-type="offline online collab">
+        <div class="card-click-area" onclick="toggleCard(this.closest('.case-card'))">
+          <div class="card-header">
+            <span class="card-num">07</span>
+            <div class="card-meta">
+              <div class="badges-wrap"><span class="card-type-badge badge-offline">Офлайн + Онлайн</span></div>
+              <div class="card-title">Партнёрские мероприятия с вузами</div>
+              <div class="card-company">VK Education — партнёрские вузы</div>
+            </div>
+            <div class="card-arrow">▼</div>
+          </div>
+          <div class="card-preview"><p class="preview-text">Дни карьеры, дни открытых дверей, форумы, конференции. Развитие стратегических партнёрств с вузами через постоянный аккаунтинг и совместные активации.</p></div>
+        </div>
+        <div class="card-body">
+          <div class="detail-grid">
+            <div class="detail-block">
+              <div class="det-label">Цель</div>
+              <div class="det-val">Поддержка и развитие стратегических партнёрств с лучшими вузами, развитие бренда работодателя VK на студенческую аудиторию, привлечение аудитории к проектам VK Education через офлайн и онлайн-активации.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Роль</div>
+              <div class="det-val">Проджект, продюсер, аккаунтинг. Взаимодействие с командами вузов, работа с экспертами и подрядчиками, кросс-функциональные команды (маркетинг, PR, ивенты, амбассадоры, технические специалисты). Подготовка смет, закупки, договора, отчёты.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Формат</div>
+              <div class="det-val">Экскурсии в офис VK, дни открытых дверей, дни карьеры, экскурсии в вузы (в том числе Академия Штиглица), интеграция в форумы партнёров: монтаж стенда, оборудование.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Активации</div>
+              <div class="det-val">Онлайн-квизы, бинго, викторины в мини-приложении. Высокий трафик на стендах, стабильное внимание аудитории.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Риски</div>
+              <div class="risk-box"><p>Ключевые риски: сроки, бюджеты, уровень мероприятия. От опоздания подрядчиков до отмены мероприятия в последний момент.</p></div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Команды / подрядчики</div>
+              <div class="det-val">Маркетинг, PR, ивент-команда VK Education, амбассадоры, технические подрядчики, команды вузов.</div>
+            </div>
+            <div class="detail-block full">
+              <div class="det-label">Что сработало / вывод</div>
+              <div class="insight-box"><p>Когда я выстроила самостоятельный аккаунтинг с конкретными вузами, я сформировала календарный план на год — все предполагаемые активности и распределённый бюджет. Это позволило присутствовать на ключевых мероприятиях вузов с нашими экспертами; взамен вузы поддерживали наши онлайн-активности, open call и запуски. Взаимодействие поддерживала постоянно: поздравления с праздниками, с днём рождения, с ключевыми событиями науки и образования. За счёт этого сложилась высокая лояльность ключевых вузов — и мероприятия удавалось делать в комфортных условиях.</p></div>
+            </div>
+          </div>
+          <div class="links-row">
+            <a href="https://vk.com/forumsmartdesign_sutd" target="_blank" class="case-link">Диджитал форум →</a>
+            <a href="https://vk.com/wall-92204627_24348" target="_blank" class="case-link">День Карьеры →</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">B2U партнёрства</span><span class="tag">HR-бренд</span><span class="tag">Аккаунтинг</span><span class="tag">Активации</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CASE 8 -->
+      <div class="case-card" data-type="federal offline">
+        <div class="card-click-area" onclick="toggleCard(this.closest('.case-card'))">
+          <div class="card-header">
+            <span class="card-num">08</span>
+            <div class="card-meta">
+              <div class="badges-wrap"><span class="card-type-badge badge-federal">Федеральный проект</span></div>
+              <div class="card-title">«Поезд Победы» — волонтёрский корпус</div>
+              <div class="card-company">НКО</div>
+            </div>
+            <div class="card-arrow">▼</div>
+          </div>
+          <div class="card-preview"><p class="preview-text">Федеральный иммерсивный музей в поезде. Руководство волонтёрским корпусом 7 000+ человек и выстраивание онлайн-поддержки 24/7 с нуля по всей России.</p></div>
+        </div>
+        <div class="card-body">
+          <div class="metrics-row">
+            <div class="metric-chip"><span class="mc-num">7 000+</span><span class="mc-lbl">волонтёров</span></div>
+            <div class="metric-chip"><span class="mc-num">24/7</span><span class="mc-lbl">онлайн-поддержка</span></div>
+            <div class="metric-chip"><span class="mc-num">1,5 года</span><span class="mc-lbl">продолжительность</span></div>
+            <div class="metric-chip"><span class="mc-num">7</span><span class="mc-lbl">федеральных округов</span></div>
+          </div>
+          <div class="detail-grid">
+            <div class="detail-block">
+              <div class="det-label">Цель</div>
+              <div class="det-val">Обязательное присутствие волонтёрского корпуса в каждом городе. Организация офлайн и онлайн-сопровождения иммерсивного музея "Поезд Победы".</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Роль</div>
+              <div class="det-val">Руководитель волонтерского корпуса. Ведение офлайн и онлайн-команд, обучение волонтёров в каждом городе, создание и сопровождение онлайн-поддержки 24/7, личное управление в сложных регионах с присутствием на месте.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Формат</div>
+              <div class="det-val">Настоящий железнодорожный поезд из восьми вагонов с иммерсивным музеем внутри. Путешествует по всей России, останавливается в крупных городах на 3–4 дня. Приезд поезда — крупное региональное событие с участием СМИ, телевидения, администрации региона.</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Риски</div>
+              <div class="risk-box"><p>Проект очень зависит от органов исполнительной власти региона. В каждом городе были сложности, пока регион не принял проект хотя бы раз. Высокая конкуренция за участие: многие НКО стремились стать партнёром, задача — обеспечить участие конкретной организации.</p></div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Команды</div>
+              <div class="det-val">Региональные волонтёрские команды по всей России, онлайн-команда поддержки 24/7 (15 человек из разных федеральных округов для нивелирования разницы часовых поясов).</div>
+            </div>
+            <div class="detail-block">
+              <div class="det-label">Показатели результата</div>
+              <div class="det-val">7 000+ волонтёров за 1,5 года, бесперебойная онлайн-поддержка 24/7, участие целевой организации в каждом регионе.</div>
+            </div>
+            <div class="detail-block full">
+              <div class="det-label">Что сработало / вывод</div>
+              <div class="insight-box"><p>Создала систему обучающих мероприятий и эфиров для каждой региональной команды — набор волонтёров практически нигде не вызвал сложностей (кроме совсем маленьких городов). Я лично курировала каждый регион в онлайне: разбирала сложные кейсы и помогала решать нестандартные ситуации. Для грамотного распределения зон ответственности и легитимизации команды на местах, я участвовала в совещаниях с Администрацией Президента и региональными властями, выстраивая эффективное GR-взаимодействие. Онлайн-поддержку 24/7 построила за счёт волонтёров из разных федеральных округов. Честно скажу: мне повезло с командой. В ней были люди, которые искренне любили этот проект и очень меня поддерживали — спустя пару месяцев я уже полностью доверяла им всю работу. Старшие приглядывали за новенькими.</p></div>
+            </div>
+          </div>
+          <div class="links-row">
+            <a href="https://poyezd-pobedy.ru/about/" target="_blank" class="case-link">О проекте "Поезд Победы" →</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Федеральный масштаб</span><span class="tag">Волонтёрский менеджмент</span><span class="tag">Онлайн-поддержка 24/7</span><span class="tag">Распределённая команда</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="contacts-section" id="contacts">
+    <div class="section-label">Связь</div>
+    <h2 class="section-title">Контакты</h2>
+    <p class="section-sub">Буду рада обсудить новые проекты, продукты и форматы сотрудничества.</p>
+    <div style="display:flex; gap:16px; flex-wrap:wrap;">
+      <a href="https://t.me/regina_komazova" target="_blank" class="contact-btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        Telegram: @regina_komazova
+      </a>
+      <a href="tel:+79610144529" class="contact-btn outline">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        8-961-014-45-29
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleCard(card) {
+  if (!card) return;
+  const wasExpanded = card.classList.contains('expanded');
+  document.querySelectorAll('.case-card.expanded').forEach(c => c.classList.remove('expanded'));
+  if (!wasExpanded) {
+    card.classList.add('expanded');
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'center' }), 100);
+  }
+}
+
+document.querySelectorAll('.ftab').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const filter = this.dataset.filter;
+    document.querySelectorAll('.case-card').forEach(card => {
+      card.classList.remove('expanded');
+      if (filter === 'all' || card.dataset.type.includes(filter)) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  });
+});
+</script>
